@@ -154,6 +154,36 @@ public class VendorTest {
         assertEquals(0, fullStockVendingMachine.getStockAmount("Gum"));
     }
 
+    @Test
+    void validateCandyRestock(){
+        vendor.restockVendor("Candy", 100);
+        assertEquals(101, vendor.getStockAmount("Candy"));
+    }
+
+    @Test
+    void validateGumRestock(){
+        vendor.restockVendor("Gum", 100);
+        assertEquals(101, vendor.getStockAmount("Gum"));
+    }
+
+    @Test
+    void validateGumRestockInvalidName(){
+        vendor.restockVendor("Chips", 100);
+        assertEquals(0, vendor.getStockAmount("Chips"));
+    }
+
+    @Test
+    void validateRestockCaseSensitivity(){
+        vendor.restockVendor("GUM", 100);
+        vendor.restockVendor("CANDY", 100);
+        assertEquals(101, vendor.getStockAmount("Gum"));
+        assertEquals(101, vendor.getStockAmount("Candy"));
+
+
+
+    }
+
+
 
 
 

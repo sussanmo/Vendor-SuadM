@@ -65,8 +65,14 @@ class Vending {
      */
     int getStockAmount(String name){
         int stock;
-        if (Stock.containsKey(name)) {
-            Item item = Stock.get(name);
+
+        if (name == null){
+            stock = 0;
+        }
+        // ensures case sensitivity for restock
+        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        if (Stock.containsKey(formattedName)) {
+            Item item = Stock.get(formattedName);
             stock = item.stock;
         }else{
             stock = 0;
@@ -74,6 +80,29 @@ class Vending {
         return stock;
     }
 
+    /**  restock items on a vendor so players can buy from it later.
+     *
+     *
+     * @param name The name of the item in vending ("Candy" or "Gum")
+     * @param stockNumber The amount of the item to put
+     *
+     *
+     */
+    void restockVendor (String name, int stockNumber){
+        // ensures case sensitivity
+        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+
+        // Check is stock contains item and is valid item
+        if (Stock.containsKey(formattedName)) {
+            Item item = Stock.get(formattedName);
+            if (stockNumber > 0 ){ // checks to see if valid number
+                item.restock(stockNumber);
+            }
+        }else{
+            System.out.println("Cannot restock this item doesn't exist.");
+        }
+
+    }
 
 
 }
