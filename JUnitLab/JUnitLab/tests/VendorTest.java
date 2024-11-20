@@ -125,6 +125,43 @@ public class VendorTest {
         assertEquals(0, emptyVendor.getStockAmount("Gum"));
     }
 
+    @Test
+    void validateEmptyInventoryByPurchasing(){
+        vendor.addMoney(2); // add enough to empty vending machine for 1 gum and 1 candy
+        vendor.select("Candy");
+        vendor.select("Gum");
+        assertEquals(0, vendor.getStockAmount("Gum"));
+        assertEquals(0, vendor.getStockAmount("Candy"));
+    }
+
+    @Test
+    void validateEmptyInventoryByPurchasingMultipleCandyItems(){
+        Vending fullStockVendingMachine = new Vending(100, 0);
+        fullStockVendingMachine.addMoney(125); // add enough to empty vending machine for 1 gum and 1 candy
+        for (int i = 0; i < 100; i++){
+            fullStockVendingMachine.select("Candy");
+        }
+        assertEquals(0, fullStockVendingMachine.getStockAmount("Candy"));
+    }
+
+    @Test
+    void validateEmptyInventoryByPurchasingMultipleGumItems(){
+        Vending fullStockVendingMachine = new Vending(0, 100);
+        fullStockVendingMachine.addMoney(50); // add enough to empty vending machine for 1 gum and 1 candy
+        for (int i = 0; i < 100; i++){
+            fullStockVendingMachine.select("Gum");
+        }
+        assertEquals(0, fullStockVendingMachine.getStockAmount("Gum"));
+    }
+
+
+
+
+
+
+
+
+
 
 
 
