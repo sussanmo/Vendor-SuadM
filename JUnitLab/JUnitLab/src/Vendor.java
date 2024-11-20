@@ -43,15 +43,38 @@ class Vending {
     void select (String name) {
         if (Stock.containsKey(name)) {
             Item item = Stock.get(name);
-            if (balance >= item.price) {
-                item.purchase(1);
-                this.balance = this.balance - item.price;
+            if (item.stock > 0) {
+                if (balance >= item.price) { // update to ensure item is in stock
+                    item.purchase(1);
+                    this.balance = this.balance - item.price;
+                } else
+                    System.out.println("Gimme more money");
+            } else {
+                System.out.println("Sorry, not in stock");
             }
-            else
-                System.out.println("Gimme more money");
         }
         else System.out.println("Sorry, don't know that item");
     }
+
+
+    /** retrieves current stock number for item if it exsits in vending
+     *
+     *
+     * @param name The name of the item in vending ("Candy" or "Gum")
+     * @return the number of items in stock
+     */
+    int getStockAmount(String name){
+        int stock;
+        if (Stock.containsKey(name)) {
+            Item item = Stock.get(name);
+            stock = item.stock;
+        }else{
+            stock = 0;
+        }
+        return stock;
+    }
+
+
 
 }
 

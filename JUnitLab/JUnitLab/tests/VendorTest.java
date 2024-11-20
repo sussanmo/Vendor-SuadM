@@ -5,16 +5,20 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class VendorTest {
 
-    static Vending vendor;
-    static HashMap<String, Item> Stock;
+    private Vending vendor;
+
 
 
     @BeforeEach
     public void setup(){
         vendor = new Vending(1,1);
+
+
+
     }
     @Test
     void addition() {
@@ -51,6 +55,83 @@ public class VendorTest {
         vendor.addMoney(Integer.MAX_VALUE);
         assertEquals(Integer.MAX_VALUE, vendor.getBalance());
     }
+
+    @Test
+    void validateBuyCandyItem(){
+        vendor.addMoney(1.25); // add just enough for a single candy
+        vendor.select("Candy");
+        assertEquals(0, vendor.getBalance());
+        assertEquals(0, vendor.getStockAmount("Candy"));
+    }
+
+    @Test
+    void validateBuyGumItem(){
+        vendor.addMoney(0.5); // add just enough for a single gum
+        vendor.select("Gum");
+        assertEquals(0, vendor.getBalance());
+        assertEquals(0, vendor.getStockAmount("Gum"));
+
+    }
+
+    @Test
+    void validateNotEnoughGumMoneyUpperBound(){
+        vendor.addMoney(.49);
+        vendor.select("Gum");
+        assertEquals(.49, vendor.getBalance());
+        assertEquals(1, vendor.getStockAmount("Gum"));
+        //assertNull(VendorTest.vendor.Stock.get("Gum"));
+    }
+    @Test
+    void validateNotEnoughGumMoneyLowerrBound(){
+        vendor.addMoney(.01);
+        vendor.select("Gum");
+        assertEquals(.01, vendor.getBalance());
+        assertEquals(1, vendor.getStockAmount("Gum"));
+        //assertNull(VendorTest.vendor.Stock.get("Gum"));
+    }
+
+    @Test
+    void validateNotEnoughCandyMoneyUpperBounde(){
+        vendor.addMoney(1.24);
+        vendor.select("Candy");
+        assertEquals(1.24, vendor.getBalance());
+        assertEquals(1, vendor.getStockAmount("Candy"));
+    }
+
+    @Test
+    void validateNotEnoughCandyMoneyLowerBound(){
+        vendor.addMoney(.01);
+        vendor.select("Candy");
+        assertEquals(.01, vendor.getBalance());
+        assertEquals(1, vendor.getStockAmount("Candy"));
+        //assertNull(VendorTest.vendor.Stock.get("Gum"));
+    }
+
+    @Test
+    void validatePurchaseNoCandyStockItem(){
+        Vending emptyVendor = new Vending(0,0);
+        emptyVendor.addMoney(1.25); // add just enough for a single candy
+        emptyVendor.select("Candy");
+        assertEquals(1.25, emptyVendor.getBalance());
+        assertEquals(0, emptyVendor.getStockAmount("Candy"));
+    }
+
+    @Test
+    void validatePurchaseNoGumStockItem(){
+        Vending emptyVendor = new Vending(0,0);
+        emptyVendor.addMoney(0.5); // add enough for a single gum
+        emptyVendor.select("Gum");
+        assertEquals(0.5, emptyVendor.getBalance());
+        assertEquals(0, emptyVendor.getStockAmount("Gum"));
+    }
+
+
+
+
+
+
+
+
 
 
 
