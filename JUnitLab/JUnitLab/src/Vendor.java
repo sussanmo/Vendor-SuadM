@@ -61,23 +61,23 @@ class Vending {
      *
      *
      * @param name The name of the item in vending ("Candy" or "Gum")
-     * @return the number of items in stock
+     * @return stock: the number of items in stock
      */
-    int getStockAmount(String name){
-        int stock;
+    Integer getStockAmount(String name){ // updated from int to integer to return null when it doesn't exist
+        //int stock;
 
         if (name == null){
-            stock = 0;
+            return null;
         }
         // ensures case sensitivity for restock
         String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         if (Stock.containsKey(formattedName)) {
             Item item = Stock.get(formattedName);
-            stock = item.stock;
+            return item.stock;
         }else{
-            stock = 0;
+            return null;
         }
-        return stock;
+
     }
 
     /**  restock items on a vendor so players can buy from it later.
@@ -90,7 +90,7 @@ class Vending {
      */
     void restockVendor (String name, int stockNumber){
         // ensures case sensitivity
-        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase(); // take first letter to upper case and keep sthe rest as lowercase
 
         // Check is stock contains item and is valid item
         if (Stock.containsKey(formattedName)) {
@@ -100,6 +100,30 @@ class Vending {
             }
         }else{
             System.out.println("Cannot restock this item doesn't exist.");
+        }
+
+    }
+
+
+
+    /**  remove an item from the vendor’s inventory if it is discontinued
+     or no longer available.
+     *
+     *
+     * @param name The name of the item in vending ("Candy" or "Gum")
+     *
+     *
+     *
+     */
+    void removeItem(String name){
+        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase(); // take first letter to upper case and keep sthe rest as lowercase
+        if (Stock.containsKey(formattedName)) {
+            Item item = Stock.get(formattedName);
+            //if(item.stock == 0){ // if empty inventory
+            Stock.remove(formattedName);
+            //}
+        } else{
+            System.out.println("Cannot remove this item doesn't exist.");
         }
 
     }

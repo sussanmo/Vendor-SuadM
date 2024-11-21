@@ -169,7 +169,7 @@ public class VendorTest {
     @Test
     void validateGumRestockInvalidName(){
         vendor.restockVendor("Chips", 100);
-        assertEquals(0, vendor.getStockAmount("Chips"));
+        assertNull(vendor.getStockAmount("Chips"));
     }
 
     @Test
@@ -179,9 +179,30 @@ public class VendorTest {
         assertEquals(101, vendor.getStockAmount("Gum"));
         assertEquals(101, vendor.getStockAmount("Candy"));
 
-
-
     }
+
+    @Test
+    void validateRemoveGumItemInventory(){
+        vendor.removeItem("Gum");
+        assertNull(vendor.getStockAmount("Gum"));
+    }
+
+    @Test
+    void validateRemoveCandyItemInventory(){
+        vendor.removeItem("Candy");
+        assertNull(vendor.getStockAmount("Candy"));
+    }
+
+    @Test
+    void validateRemoveItemCaseSensitivity(){
+        vendor.removeItem("GUM");
+        vendor.removeItem("CANDY");
+        assertNull( vendor.getStockAmount("GUM"));
+        assertNull( vendor.getStockAmount("CANDY"));
+    }
+
+
+
 
 
 
