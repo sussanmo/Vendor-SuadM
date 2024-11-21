@@ -202,6 +202,27 @@ public class VendorTest {
     }
 
 
+    @Test
+    void validatePurchaseHistoryCandy(){
+        vendor.addMoney(10);
+        vendor.select("Candy");
+        assertEquals(1,vendor.getPurchase("Candy"));
+    }
+
+    @Test
+    void validatePurchaseHistoryGum(){
+        vendor.addMoney(10);
+        vendor.select("Gum");
+        assertEquals(1,vendor.getPurchase("Gum"));
+    }
+
+    @Test
+    void validatePurchaseHistoryNonexistentItem(){
+        vendor.addMoney(10);
+        vendor.select("Chips");
+        assertEquals(0,vendor.getPurchase("Chips"));
+    }
+
 
 
 

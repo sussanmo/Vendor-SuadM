@@ -129,6 +129,32 @@ class Vending {
     }
 
 
+    /**  track customer purchases for each item,
+     providing insights on popular items and trends.
+     *
+     *
+     * @param name The name of the item in vending ("Candy" or "Gum")
+     *
+     *
+     *
+     */
+    int getPurchase(String name){
+        int totalPurchase = 0;
+        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase(); // take first letter to upper case and keep sthe rest as lowercase
+        if (Stock.containsKey(formattedName)) {
+            Item item = Stock.get(formattedName);
+            totalPurchase = item.purchase;
+        }else {
+            System.out.println("Item doesn't exist, so there is no purchase history");
+        }
+
+        return totalPurchase;
+
+    }
+
+
+
+
 }
 
 class Examples {
