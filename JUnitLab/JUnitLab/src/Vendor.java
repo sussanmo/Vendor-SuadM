@@ -172,6 +172,25 @@ class Vending {
         }
     }
 
+    /**   chang name of item at vendor
+     *
+     * @param name The name of the item in vending ("Candy" or "Gum")
+     *
+     * @param newName The name of the  new item to change vending ("Candy" or "Gum")
+     *
+     */
+    void changeItemName(String name, String newName){
+        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase(); // take first letter to upper case and keep sthe rest as lowercase
+        if (Stock.containsKey(formattedName)) {
+            Item item = Stock.get(formattedName);
+            Stock.put(newName, item);
+            Stock.remove(formattedName);
+        }else{
+            System.out.println("Item doesn't exist");
+        }
+
+    }
+
 
 
 

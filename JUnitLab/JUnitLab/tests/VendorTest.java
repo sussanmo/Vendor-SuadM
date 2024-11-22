@@ -258,6 +258,24 @@ public class VendorTest {
         assertEquals(description,vendor.getItemDescription(item));
     }
 
+    @Test
+    void validateChangeItem(){
+        String item = "Gummies";
+        String description = "Cherry flavored chewing candy";
+        vendor.restockVendor(item, 2, 1.5, description);
+        vendor.changeItemName(item, "Jelly");
+        assertEquals(2, vendor.getStockAmount("Jelly"));
+    }
+
+    @Test
+    void validateChangeItemCaseSensitivity(){
+        String item = "Candy";
+        String description = "Cherry flavored rock candy";
+        vendor.restockVendor(item, 5, 0.5, description);
+        vendor.changeItemName(item, "Gummie");
+        assertEquals(1 + 5, vendor.getStockAmount("Gummie"));
+    }
+
 
 
 
