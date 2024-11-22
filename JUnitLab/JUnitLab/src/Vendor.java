@@ -239,6 +239,40 @@ class Vending {
         }
     }
 
+    /**
+     * set item as bestseller based off purchases
+     * @param name of item to mark
+     *
+     */
+    void setItemBestSeller(String name){
+        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase(); // take first letter to upper case and keep sthe rest as lowercase
+        if (Stock.containsKey(formattedName)) {
+            Item item = Stock.get(formattedName);
+            item.setBestSeller(item);
+        }else{
+            System.out.println("Item doesnt exit");
+        }
+    }
+
+    /**
+     * set item as bestseller based off purchases
+     * @param name of item to mark
+     * @return whether item is marked as bestseller
+     */
+    boolean isItemBestSeller(String name){
+        boolean bestSeller = false;
+        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase(); // take first letter to upper case and keep sthe rest as lowercase
+        if (Stock.containsKey(formattedName)) {
+            Item item = Stock.get(formattedName);
+            bestSeller = item.bestSeller;
+        }else{
+            System.out.println("Item doesnt exit");
+        }
+        return bestSeller;
+
+    }
+
+
 
 
 

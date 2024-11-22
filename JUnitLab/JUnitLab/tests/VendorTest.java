@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class VendorTest {
 
@@ -330,6 +329,26 @@ public class VendorTest {
         vendor.select(item);
         assertEquals(10-newPrice, vendor.getBalance());
 
+    }
+
+    @Test
+    void validateBestSeller(){
+        String itemName = "Twinkie";
+        String description = "Soft minion like cake";
+        vendor.restockVendor(itemName, 10, 4, description);
+        vendor.setItemBestSeller(itemName);
+
+
+        assertTrue(vendor.isItemBestSeller(itemName));
+    }
+
+    @Test
+    void validateBestSellerFalse(){
+        String itemName = "Gum";
+        String description = "Chewy mint gum";
+        vendor.restockVendor(itemName, 1, .5, description);
+
+        assertFalse(vendor.isItemBestSeller(itemName));
     }
 
 
