@@ -6,12 +6,12 @@ import java.util.HashMap;
  * well as the current balance of money that has been deposited into the machine.
  */
 class Vending {
-    private static HashMap<String, Item> Stock = new HashMap<String,Item>();
+    private static HashMap<String, Item> Stock = new HashMap<String,Item>(); // araylist of multiple vendors management
     private double balance;
 
     Vending(int numCandy, int numGum) {
-        Stock.put("Candy", new Item(1.25, numCandy));
-        Stock.put("Gum", new Item(.5, numGum));
+        Stock.put("Candy", new Item(1.25, numCandy, "Sweet treat of chocolate or taffy"));
+        Stock.put("Gum", new Item(.5, numGum, "Chewing taffy"));
         this.balance = 0;
     }
 
@@ -88,7 +88,7 @@ class Vending {
      *
      *
      */
-    void restockVendor (String name, int stockNumber){
+    void restockVendor (String name, int stockNumber, double price, String description){
         // ensures case sensitivity
         String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase(); // take first letter to upper case and keep sthe rest as lowercase
 
@@ -99,7 +99,9 @@ class Vending {
                 item.restock(stockNumber);
             }
         }else{
-            System.out.println("Cannot restock this item doesn't exist.");
+            // "Candy", new Item(1.25, numCandy, "Sweet treat of chocolate or taffy")
+            Stock.put(formattedName, new Item(price, stockNumber, description));
+            System.out.println("A new item " + formattedName +  "has been stocked to the vending.");
         }
 
     }
@@ -151,6 +153,32 @@ class Vending {
         return totalPurchase;
 
     }
+
+    /**   check an item’s description or details before purchasing
+     *
+     *
+     * @param name The name of the item in vending ("Candy" or "Gum")
+     *
+     *
+     *
+     */
+    String getItemDescription(String name){
+        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase(); // take first letter to upper case and keep sthe rest as lowercase
+        if (Stock.containsKey(formattedName)) {
+            Item item = Stock.get(formattedName);
+            return item.description;
+        }else{
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 

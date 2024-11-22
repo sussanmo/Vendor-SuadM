@@ -5,10 +5,13 @@ class Item {
     // purchase number for later insights
     int purchase;
 
-    Item(double price, int numPieces) {
+    String description;
+
+    Item(double price, int numPieces, String description) {
         this.price = price;
         this.stock = numPieces;
         this.purchase = 0;
+        this.description = description;
     }
 
     void restock(int amount) {
@@ -19,4 +22,8 @@ class Item {
         this.stock = this.stock - amount;
         this.purchase += amount;
     }
+
+
+
+
 }
