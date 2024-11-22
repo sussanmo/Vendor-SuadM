@@ -269,11 +269,32 @@ public class VendorTest {
 
     @Test
     void validateChangeItemCaseSensitivity(){
-        String item = "Candy";
+        String item = "CANDY";
         String description = "Cherry flavored rock candy";
         vendor.restockVendor(item, 5, 0.5, description);
         vendor.changeItemName(item, "Gummie");
         assertEquals(1 + 5, vendor.getStockAmount("Gummie"));
+    }
+
+    @Test
+    void validatePrintMultipleVendors(){
+        Vending vendor1 = new Vending(1, 0);
+        Vending vendor2 = new Vending(0, 1);
+        Vending vendor3 = new Vending(1, 0);
+        Vending vendor4 = new Vending(1, 0);
+        VendorManagement vendorManagement = new VendorManagement(vendor1);
+        vendorManagement.addVendor(vendor2);
+        vendorManagement.addVendor(vendor3);
+        vendorManagement.addVendor(vendor4);
+
+        StringBuilder vendorInventoryExpected = new StringBuilder();
+        for (Vending vendor : vendorManagement.vendors) {
+            vendorInventoryExpected.append("Vendor:\n");
+            vendorInventoryExpected.append(vendor.getInventory());
+        }
+        String vendorList = vendorInventoryExpected.toString();
+        assertEquals(vendorList, vendorManagement.printVendors());
+
     }
 
 

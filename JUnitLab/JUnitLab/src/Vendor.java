@@ -192,14 +192,33 @@ class Vending {
     }
 
 
+    /**
+     * print the inventory in a machine
+     *
+     * @return appended string of the items in 1 machine
+     */
+    String getInventory(){
+        StringBuilder vendorList = new StringBuilder();
+        String vendorInventory = "";
 
-
-
-
-
-
-
-
+        if (Stock.size() == 0){
+           System.out.println("Empty Machine");
+        }else{
+            for (String key : Stock.keySet()){
+                Item item = Stock.get(key);
+//                System.out.println("Item: " + item);
+//                System.out.println("$: " + item.price);
+//                System.out.println("Stock: " + item.stock);
+//                System.out.println("Description: " + item.description);
+                vendorList.append("Item: ").append(key);
+                vendorList.append("$: ").append(item.price);
+                vendorList.append("Stock: ").append(item.stock);
+                vendorList.append("Description: ").append(item.description);
+                vendorInventory = vendorList.toString();
+            }
+        }
+        return vendorInventory;
+    }
 
 
 }
