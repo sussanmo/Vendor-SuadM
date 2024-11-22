@@ -220,6 +220,27 @@ class Vending {
         return vendorInventory;
     }
 
+    /** apply discounts to specific items or categories within the vendor’s
+     inventory, allowing for seasonal sales or promotions.
+     * @param name of specific item to discount
+     * @param discount of specific item to discount
+     */
+    void applyDiscount(String name, double discount){
+        if (discount >= 0 && discount <= 1){
+            String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase(); // take first letter to upper case and keep sthe rest as lowercase
+            if (Stock.containsKey(formattedName)) {
+                Item item = Stock.get(formattedName);
+                double price = item.price - (item.price * discount);
+                Stock.put(formattedName, new Item(price, item.stock, item.description));
+            }
+            //Stock.remove(formattedName);
+        }else{
+            System.out.println("Item can't be discounted");
+        }
+    }
+
+
+
 
 }
 

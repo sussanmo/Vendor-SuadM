@@ -295,7 +295,43 @@ public class VendorTest {
         String vendorList = vendorInventoryExpected.toString();
         assertEquals(vendorList, vendorManagement.printVendors());
 
+
     }
+
+
+    @Test
+    void validateInvalidDiscountOutofBounds(){
+        String item = "Candy";
+        double newPrice = 1.25 - (1.25*5);
+        vendor.addMoney(10);
+        vendor.applyDiscount(item, 5);
+        vendor.select(item);
+        assertEquals(10-1.25, vendor.getBalance());
+
+    }
+
+    @Test
+    void validateInvalidDiscountNegative(){
+        String item = "Candy";
+        double newPrice = 1.25 - (1.25*Integer.MIN_VALUE);
+        vendor.addMoney(10);
+        vendor.applyDiscount(item, Integer.MIN_VALUE);
+        vendor.select(item);
+        assertEquals(10-1.25, vendor.getBalance());
+
+    }
+
+    @Test
+    void validateDiscount(){
+        String item = "Candy";
+        double newPrice = 1.25 - (1.25*.10);
+        vendor.addMoney(10);
+        vendor.applyDiscount(item, .10);
+        vendor.select(item);
+        assertEquals(10-newPrice, vendor.getBalance());
+
+    }
+
 
 
 
